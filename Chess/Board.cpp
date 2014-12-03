@@ -2,37 +2,18 @@
 
 #include "Board.h"
 
-enum Board::Pieces
-{
-	EMPTY = -1,
-
-	BLACK_PAWN,
-	BLACK_ROOK,
-	BLACK_KNIGHT,
-	BLACK_BISHOP,
-	BLACK_QUEEN,
-	BLACK_KING,
-
-	WHITE_PAWN,
-	WHITE_ROOK,
-	WHITE_KNIGHT,
-	WHITE_BISHOP,
-	WHITE_QUEEN,
-	WHITE_KING
-};
-
 // 0-5 black pieces
 // 6-11 white pieces
 int Board::piecePositions[8][8] =
 {
-	{ 1, 2, 3, 4, 5, 3, 2, 1 },
+	{ 2, 3, 4, 5, 6, 4, 3, 2 },
+	{ 1, 1, 1, 1, 1, 1, 1, 1 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ -1, -1, -1, -1, -1, -1, -1, -1 },
-	{ -1, -1, -1, -1, -1, -1, -1, -1 },
-	{ -1, -1, -1, -1, -1, -1, -1, -1 },
-	{ -1, -1, -1, 6, -1, -1, -1, -1 },
-	{ 6, 6, 6, -1, 6, 6, 6, 6 },
-	{ 7, 8, 9, 10, 11, 9, 8, 7 }
+	{ -2, -3, -4, -5, -6, -4, -3, -2 }
 };
 
 

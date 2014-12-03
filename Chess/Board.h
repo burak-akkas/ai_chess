@@ -12,8 +12,6 @@ class Board
 		int calcY(int index);
 
 	public:
-		enum Pieces;
-		enum Positions;
 		static int piecePositions[8][8];
 		SDL_Rect boardRectangle[8][8];
 		Board();

@@ -1,4 +1,6 @@
+#pragma once
 #include "Window.h"
+#include "Input.h"
 
 enum Positions
 {
@@ -13,6 +15,7 @@ enum Positions
 };
 
 int check(std::string s);
+std::string checkCollision(Board b, Sint32 x, Sint32 y);
 
 int main(int argc, char* args[])
 {
@@ -48,14 +51,20 @@ int main(int argc, char* args[])
 					{
 						quit = true;
 					}
+					// handle mouse input
+					if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+					{
+						std::cout << "[Left click] at x=" << e.button.x << ", y=" << e.button.y << std::endl;
+						std::cout << "Collision with " << checkCollision(*chessBoard, e.button.x, e.button.y) << std::endl;
+					}
 				}
 
 				window->render(*chessBoard);
 
-				std::string x, y;
-				std::cin >> x >> y;
+				//std::string x, y;
+				//std::cin >> x >> y;
 
-				chessBoard->movePiece(check(x), check(y));
+				//chessBoard->movePiece(check(x), check(y));
 			}
 		}
 	}
@@ -72,4 +81,61 @@ int check(std::string s)
 	if (s == "A3") return 40;
 	else return 0; // for now
 
+}
+
+std::string checkCollision(Board b, Sint32 x, Sint32 y)
+{
+	int t = 0;
+	std::string p = "";
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (b.piecePositions[i][j] != 0 && &(b.boardRectangle[i][j]) != NULL)
+			{
+				if (x < b.boardRectangle[i][j].x + b.boardRectangle[i][j].w &&
+					x > b.boardRectangle[i][j].x &&
+					y < b.boardRectangle[i][j].y + b.boardRectangle[i][j].h &&
+					y > b.boardRectangle[i][j].y)
+				{
+					t = b.piecePositions[i][j];
+					
+					switch (t)
+					{
+						case 1:
+						case -1:
+							p = "PAWN";
+							break;
+						case 2:
+						case -2:
+							p = "ROOK";
+							break;
+						case 3:
+						case -3:
+							p = "KNIGHT";
+							break;
+						case 4:
+						case -4:
+							p = "BISHOP";
+							break;
+						case 5:
+						case -5:
+							p = "QUEEN";
+							break;
+						case 6:
+						case -6:
+							p = "KING";
+							break;
+						default:
+							p = "NOTHING";
+							break;
+					}
+
+					if (t > 0) return p + " (BLACK)";
+					else return p + " (WHITE)";
+				}
+			}
+		}
+	}
 }

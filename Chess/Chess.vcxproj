@@ -71,10 +71,12 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
