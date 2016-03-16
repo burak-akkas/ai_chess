@@ -1,3 +1,4 @@
 Chess Playing AI with Graphical User Interface
 ========
-Readme
+
+This project works with SDL2.
