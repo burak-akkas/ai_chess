@@ -1,6 +1,8 @@
-#include "Board.h"
+#pragma once
 #include <iostream>
-#include <iomanip>
+#include "Board.h"
+
+class Board;
 
 enum Pieces
 {
@@ -30,5 +32,6 @@ class Window
 		bool loadMedia();
 		void close();
 		SDL_Texture* loadTexture(std::string path);
-		void render(Board b);
+		SDL_Renderer* getRenderer();
+		void render(Board *b);
 };

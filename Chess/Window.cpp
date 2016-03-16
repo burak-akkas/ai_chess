@@ -1,5 +1,5 @@
 // Window.cpp
-  
+#pragma once
 #include "Window.h"
 
 bool Window::init()
@@ -18,7 +18,7 @@ bool Window::init()
 	else
 	{
 		// create window
-		window = SDL_CreateWindow("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("AI Chess - [F1 to RESTART, F2 to RESIGN, ESC to QUIT]", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 		if (window == NULL)
 		{
@@ -87,7 +87,10 @@ void Window::close()
 bool Window::loadMedia()
 {
 	bool success = true;
-	std::string path = "C:/Users/Burak/Desktop/Chess_Devel/Graphics/";
+	// test
+	//std::string path = "C:/Users/Burak/Desktop/Chess_Devel/Graphics/";
+	// release
+	std::string path = "Graphics/";
 
 	// load board texture
 	board = loadTexture(path + "Board.png");
@@ -150,7 +153,7 @@ SDL_Texture* Window::loadTexture(std::string path)
 	return newTexture;
 }
 
-void Window::render(Board b)
+void Window::render(Board *b)
 {
 	/* CLEAR */
 	SDL_RenderClear(renderer);
@@ -166,47 +169,47 @@ void Window::render(Board b)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			temp = b.piecePositions[i][j];
+			temp = b->piecePositions[i][j];
 
 			if (temp != 0)
 			{
 				switch (temp)
 				{
-					case 1:
-						SDL_RenderCopy(renderer, black_pieces[PAWN], NULL, &(b.boardRectangle[i][j]));
-						break;
-					case 2:
-						SDL_RenderCopy(renderer, black_pieces[ROOK], NULL, &(b.boardRectangle[i][j]));
-						break;
-					case 3:
-						SDL_RenderCopy(renderer, black_pieces[KNIGHT], NULL, &(b.boardRectangle[i][j]));
-						break;
-					case 4:
-						SDL_RenderCopy(renderer, black_pieces[BISHOP], NULL, &(b.boardRectangle[i][j]));
-						break;
-					case 5:
-						SDL_RenderCopy(renderer, black_pieces[QUEEN], NULL, &(b.boardRectangle[i][j]));
-						break;
-					case 6:
-						SDL_RenderCopy(renderer, black_pieces[KING], NULL, &(b.boardRectangle[i][j]));
-						break;
 					case -1:
-						SDL_RenderCopy(renderer, white_pieces[PAWN], NULL, &(b.boardRectangle[i][j]));
+						SDL_RenderCopy(renderer, black_pieces[PAWN], NULL, &(b->boardRectangle[i][j]));
 						break;
 					case -2:
-						SDL_RenderCopy(renderer, white_pieces[ROOK], NULL, &(b.boardRectangle[i][j]));
+						SDL_RenderCopy(renderer, black_pieces[ROOK], NULL, &(b->boardRectangle[i][j]));
 						break;
 					case -3:
-						SDL_RenderCopy(renderer, white_pieces[KNIGHT], NULL, &(b.boardRectangle[i][j]));
+						SDL_RenderCopy(renderer, black_pieces[KNIGHT], NULL, &(b->boardRectangle[i][j]));
 						break;
 					case -4:
-						SDL_RenderCopy(renderer, white_pieces[BISHOP], NULL, &(b.boardRectangle[i][j]));
+						SDL_RenderCopy(renderer, black_pieces[BISHOP], NULL, &(b->boardRectangle[i][j]));
 						break;
 					case -5:
-						SDL_RenderCopy(renderer, white_pieces[QUEEN], NULL, &(b.boardRectangle[i][j]));
+						SDL_RenderCopy(renderer, black_pieces[QUEEN], NULL, &(b->boardRectangle[i][j]));
 						break;
 					case -6:
-						SDL_RenderCopy(renderer, white_pieces[KING], NULL, &(b.boardRectangle[i][j]));
+						SDL_RenderCopy(renderer, black_pieces[KING], NULL, &(b->boardRectangle[i][j]));
+						break;
+					case 1:
+						SDL_RenderCopy(renderer, white_pieces[PAWN], NULL, &(b->boardRectangle[i][j]));
+						break;
+					case 2:
+						SDL_RenderCopy(renderer, white_pieces[ROOK], NULL, &(b->boardRectangle[i][j]));
+						break;
+					case 3:
+						SDL_RenderCopy(renderer, white_pieces[KNIGHT], NULL, &(b->boardRectangle[i][j]));
+						break;
+					case 4:
+						SDL_RenderCopy(renderer, white_pieces[BISHOP], NULL, &(b->boardRectangle[i][j]));
+						break;
+					case 5:
+						SDL_RenderCopy(renderer, white_pieces[QUEEN], NULL, &(b->boardRectangle[i][j]));
+						break;
+					case 6:
+						SDL_RenderCopy(renderer, white_pieces[KING], NULL, &(b->boardRectangle[i][j]));
 						break;
 					default:
 						break;
@@ -216,4 +219,9 @@ void Window::render(Board b)
 	}
 
 	SDL_RenderPresent(renderer);
+}
+
+SDL_Renderer* Window::getRenderer()
+{
+	return this->renderer;
 }
